@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UtadeoGastos.Data;
 
@@ -11,9 +12,11 @@ using UtadeoGastos.Data;
 namespace UtadeoGastos.Migrations
 {
     [DbContext(typeof(GastosDbContext))]
-    partial class GastosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240403175659_tblGastos")]
+    partial class tblGastos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

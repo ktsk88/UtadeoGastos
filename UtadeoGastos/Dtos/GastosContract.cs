@@ -2,8 +2,8 @@
 {
     public class GastosContract
     {
-        public decimal Value { get; set; }
-        public required string Description { get; set; }
+        public decimal Valor { get; set; }
+        public required string Descripcion { get; set; }
     }
     public class ReadGastosContract : GastosContract
     {

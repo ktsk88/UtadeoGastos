@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using UtadeoGastos.Data;
+using UtadeoGastos.LogicBusiness;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,9 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 0;
 });
+
+builder.Services.AddScoped<IGastosLogic, GastosLogic>();
+builder.Services.AddAutoMapper(typeof(GastosLogic));
 
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using UtadeoGastos.Data;
@@ -10,18 +11,28 @@ namespace UtadeoGastos.LogicBusiness
 {
     public class GastosLogic: IGastosLogic
     {
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly GastosDbContext _dbContext;
         private readonly IMapper _mapper;
-        public GastosLogic(GastosDbContext dbContext, IMapper mapper)
+        public GastosLogic(GastosDbContext dbContext, IMapper mapper, UserManager<IdentityUser> userManager)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         async Task IGastosLogic.Add(GastosContract contract)
         {
-            await _dbContext.Gastos.AddAsync(_mapper.Map<Gastos>(contract));
+            var tosave = _mapper.Map<Gastos>(contract);
+            if (await _userManager.FindByEmailAsync("p@p.com") is IdentityUser user) 
+            { 
+                tosave.User =user;
+            }
+
+            await _dbContext.Gastos.AddAsync(tosave);
             await _dbContext.SaveChangesAsync();
+
+            //TODO ajustar usuario quemado
         }
 
         async Task IGastosLogic.Delete(int id)
