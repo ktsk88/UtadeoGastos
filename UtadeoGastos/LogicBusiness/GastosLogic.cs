@@ -51,7 +51,7 @@ namespace UtadeoGastos.LogicBusiness
             using var transaction = _dbContext.Database.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted);
 
             var result = await _dbContext.Gastos
-                .Where(t => t.Descripcion.Contains(nombre))
+                .Where(t => t.Owner.Equals(nombre))
                 .OrderByDescending(t => t.FechaCreacion)
                 .Select(t => _mapper.Map<ReadGastosContract>(t))
                 .ToPaginatedListAsync(index, size);
