@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UtadeoGastos.Migrations
 {
     /// <inheritdoc />
-    public partial class tblGastos : Migration
+    public partial class TblGastos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace UtadeoGastos.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Owner = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     EsIngreso = table.Column<bool>(type: "bit", nullable: false),
                     FechaCreacion = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -26,18 +26,7 @@ namespace UtadeoGastos.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Gastos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Gastos_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Gastos_UserId",
-                table: "Gastos",
-                column: "UserId");
         }
 
         /// <inheritdoc />

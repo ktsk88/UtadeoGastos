@@ -8,8 +8,7 @@ namespace UtadeoGastos.Data
     public class Gastos : Base
     {
 
-        [Required]
-        public required IdentityUser User { get; set; }
+        public string Owner { get; set; }
         [Required, Column(TypeName = "decimal(18, 2)")]
         public decimal Valor { get; set; }
         [Required]

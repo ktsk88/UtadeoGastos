@@ -20,8 +20,6 @@ namespace UtadeoGastos.Controllers
         public async Task<ActionResult> Delete([FromRoute]int id) 
         { 
             await gastosLogic.Delete(id);
-
-            //TODO - COntrol de errores
             return Ok();
         }
 
@@ -29,8 +27,6 @@ namespace UtadeoGastos.Controllers
         public async Task<ActionResult> Save([FromBody] GastosContract dto)
         {
             await gastosLogic.Add(dto);
-
-            //TODO - COntrol de errores
             return Ok();
         }
 
@@ -38,8 +34,6 @@ namespace UtadeoGastos.Controllers
         public async Task<ActionResult> Update([FromBody] ReadGastosContract dto)
         {
             await gastosLogic.Update(dto);
-
-            //TODO - COntrol de errores
             return Ok();
         }
 

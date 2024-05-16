@@ -24,15 +24,8 @@ namespace UtadeoGastos.LogicBusiness
         async Task IGastosLogic.Add(GastosContract contract)
         {
             var tosave = _mapper.Map<Gastos>(contract);
-            if (await _userManager.FindByEmailAsync("p@p.com") is IdentityUser user) 
-            { 
-                tosave.User =user;
-            }
-
             await _dbContext.Gastos.AddAsync(tosave);
             await _dbContext.SaveChangesAsync();
-
-            //TODO ajustar usuario quemado
         }
 
         async Task IGastosLogic.Delete(int id)
@@ -42,8 +35,6 @@ namespace UtadeoGastos.LogicBusiness
                 _dbContext.Gastos.Remove(db);
                 await _dbContext.SaveChangesAsync();
             }
-
-            //TODO No existe el gasto que se intenta eliminar
         }
 
         async Task<ReadGastosContract> IGastosLogic.GetById(int id)
@@ -52,8 +43,6 @@ namespace UtadeoGastos.LogicBusiness
             {
                 return _mapper.Map<ReadGastosContract>(db);
             }
-
-            //TODO No existe el gasto que se intenta eliminar
             throw new NotImplementedException();
         }
 
@@ -82,8 +71,6 @@ namespace UtadeoGastos.LogicBusiness
                 db.Descripcion = toFind.Descripcion;
                 await _dbContext.SaveChangesAsync();
             }
-
-            //TODO No existe el gasto que se intenta eliminar
         }
     }
 }

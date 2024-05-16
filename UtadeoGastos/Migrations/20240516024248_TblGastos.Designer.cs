@@ -12,8 +12,8 @@ using UtadeoGastos.Data;
 namespace UtadeoGastos.Migrations
 {
     [DbContext(typeof(GastosDbContext))]
-    [Migration("20240403175659_tblGastos")]
-    partial class tblGastos
+    [Migration("20240516024248_TblGastos")]
+    partial class TblGastos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -241,16 +241,14 @@ namespace UtadeoGastos.Migrations
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("Owner")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Gastos");
                 });
@@ -304,17 +302,6 @@ namespace UtadeoGastos.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("UtadeoGastos.Data.Gastos", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

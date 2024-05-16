@@ -2,6 +2,7 @@
 {
     public class GastosContract
     {
+        public string Owner { get; set; }
         public decimal Valor { get; set; }
         public required string Descripcion { get; set; }
     }
