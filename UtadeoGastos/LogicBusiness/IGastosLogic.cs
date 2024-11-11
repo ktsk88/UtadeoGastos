@@ -9,5 +9,6 @@ namespace UtadeoGastos.LogicBusiness
         Task Update(ReadGastosContract contract);
         Task<ReadGastosContract> GetById(int id);
         Task<PaginatedResult<ReadGastosContract>> GetByName(string nombre, int index, int size);
+        Task<Inform> GetMonthInform(string owner);
     }
 }

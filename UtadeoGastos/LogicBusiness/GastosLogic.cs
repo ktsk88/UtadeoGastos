@@ -9,7 +9,7 @@ using UtadeoGastos.Utilities;
 
 namespace UtadeoGastos.LogicBusiness
 {
-    public class GastosLogic: IGastosLogic
+    public class GastosLogic : IGastosLogic
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly GastosDbContext _dbContext;
@@ -24,6 +24,8 @@ namespace UtadeoGastos.LogicBusiness
         async Task IGastosLogic.Add(GastosContract contract)
         {
             var tosave = _mapper.Map<Gastos>(contract);
+            tosave.EsIngreso = tosave.Valor > 0;
+
             await _dbContext.Gastos.AddAsync(tosave);
             await _dbContext.SaveChangesAsync();
         }
@@ -72,5 +74,28 @@ namespace UtadeoGastos.LogicBusiness
                 await _dbContext.SaveChangesAsync();
             }
         }
+
+        async Task<Inform> IGastosLogic.GetMonthInform(string owner)
+        {
+            var tender = await _dbContext.Gastos
+                .Where(g => g.FechaCreacion.Month.Equals(DateTime.UtcNow.Month) && g.Owner.Equals(owner)).ToListAsync();
+
+            var tolo = tender.GroupBy(g => g.EsIngreso).Select(g => new { key = g.Key, dato = g.Sum(x => x.Valor) });
+
+            var result = new Inform();
+
+            foreach (var item in tolo)
+            {
+                if (item.key)
+                    result.Ingresos = item.dato;
+                else
+                    result.Egresos = item.dato;
+
+            }
+
+            return result;
+        }
+
+
     }
 }

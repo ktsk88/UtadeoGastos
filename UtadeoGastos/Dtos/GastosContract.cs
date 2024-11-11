@@ -10,4 +10,10 @@
     {
         public int Id { get; set; }
     }
+
+    public class Inform
+    {
+        public decimal Ingresos { get; set; }
+        public decimal Egresos { get; set; }
+    }
 }

@@ -1,7 +1,4 @@
-﻿
-using System.IO;
-
-using AutoMapper;
+﻿using AutoMapper;
 
 using UtadeoGastos.Data;
 using UtadeoGastos.Dtos;

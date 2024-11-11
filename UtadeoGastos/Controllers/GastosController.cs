@@ -17,8 +17,8 @@ namespace UtadeoGastos.Controllers
         }
 
         [HttpDelete("/{id}")]
-        public async Task<ActionResult> Delete([FromRoute]int id) 
-        { 
+        public async Task<ActionResult> Delete([FromRoute] int id)
+        {
             await gastosLogic.Delete(id);
             return Ok();
         }
@@ -41,6 +41,12 @@ namespace UtadeoGastos.Controllers
         public async Task<ActionResult> GetByName([FromRoute] string name, [FromRoute] int cantidad, [FromRoute] int pagina)
         {
             return Ok(await gastosLogic.GetByName(name, pagina, cantidad));
+        }
+
+        [HttpGet("/{name}")]
+        public async Task<ActionResult> GetByName([FromRoute] string name)
+        {
+            return Ok(await gastosLogic.GetMonthInform(name));
         }
     }
 }
