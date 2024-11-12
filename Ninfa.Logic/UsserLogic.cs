@@ -14,10 +14,12 @@ namespace Ninfa.Logic
     public class UsserLogic : IUsserLogic
     {
         private readonly IUserRepo _userRepo;
+        private readonly IConcepUserRepo _concepUserRepo;
 
-        public UsserLogic(IUserRepo userRepo)
+        public UsserLogic(IUserRepo userRepo, IConcepUserRepo concepUserRepo)
         {
             _userRepo = userRepo;
+            _concepUserRepo = concepUserRepo;
         }
 
         async Task<bool> IUsserLogic.Delete(string phone)
@@ -48,6 +50,15 @@ namespace Ninfa.Logic
             }
 
             return default!;
+        }
+
+        async Task<IEnumerable<ConceptRead>> IUsserLogic.GetConcepts(string phone)
+        {
+            if (!await _userRepo.UserExistsByPhone(phone))
+                return Enumerable.Empty<ConceptRead>();
+
+            var u = await _userRepo.GetUserByPhone(phone);
+            return await _concepUserRepo.GetAllConcepsByUserId(u.Id);
         }
 
         async Task<int> IUsserLogic.Save(UserSave dto)

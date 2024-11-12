@@ -1,4 +1,5 @@
-﻿using Ninfa.Entities;
+﻿using Ninfa.Common;
+using Ninfa.Entities;
 
 namespace Ninfa.Interface
 {
@@ -34,5 +35,10 @@ namespace Ninfa.Interface
         /// <param name="userId">Concep's user.</param>
         /// <returns>Boolean indicating existence of the Concep.</returns>
         Task<bool> ConcepExistsByName(string name, int userId);
+
+        /// <summary>Get concepts of an user.</summary>
+        /// <param name="id">User Id</param>
+        /// <returns></returns>
+        Task<IEnumerable<ConceptRead>> GetAllConcepsByUserId(int id);
     }
 }

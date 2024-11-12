@@ -13,5 +13,6 @@ namespace Ninfa.Logic.Abstractions.Interface
         Task<int> Save(UserSave dto);
         Task<bool> Delete( string phone);
         Task<UserRead> Get(string phone);
+        Task<IEnumerable<ConceptRead>> GetConcepts (string phone);
     }
 }
