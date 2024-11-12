@@ -1,4 +1,5 @@
 ﻿using Ninfa.Common;
+using Ninfa.Common.TransferObjects;
 using Ninfa.Entities;
 
 namespace Ninfa.Interface
@@ -38,7 +39,8 @@ namespace Ninfa.Interface
 
         /// <summary>Get concepts of an user.</summary>
         /// <param name="id">User Id</param>
+        /// <param name="page">Page</param>
         /// <returns></returns>
-        Task<IEnumerable<ConceptRead>> GetAllConcepsByUserId(int id);
+        Task<PaginatedResult<ConceptRead>> GetAllConcepsByUserId(int id, int page);
     }
 }

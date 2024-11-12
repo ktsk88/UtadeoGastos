@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Ninfa.Common;
+﻿using Ninfa.Common;
+using Ninfa.Common.TransferObjects;
 using Ninfa.Entities;
 using Ninfa.Interface;
 using Ninfa.Logic.Abstractions.Interface;
@@ -29,7 +24,7 @@ namespace Ninfa.Logic
                 var u = await _userRepo.GetUserByPhone(phone);
                 await _userRepo.DeleteUser(u.Id);
             }
-            
+
             return true;
         }
 
@@ -39,7 +34,8 @@ namespace Ninfa.Logic
             {
                 var u = await _userRepo.GetUserByPhone(phone);
 
-                return new UserRead { 
+                return new UserRead
+                {
                     Id = u.Id,
                     Nombre = u.Nombre,
                     FechaCreacion = u.FechaCreacion,
@@ -52,18 +48,19 @@ namespace Ninfa.Logic
             return default!;
         }
 
-        async Task<IEnumerable<ConceptRead>> IUsserLogic.GetConcepts(string phone)
+        async Task<PaginatedResult<ConceptRead>> IUsserLogic.GetConcepts(string phone, int page)
         {
             if (!await _userRepo.UserExistsByPhone(phone))
-                return Enumerable.Empty<ConceptRead>();
+                return new PaginatedResult<ConceptRead>();
 
             var u = await _userRepo.GetUserByPhone(phone);
-            return await _concepUserRepo.GetAllConcepsByUserId(u.Id);
+            return await _concepUserRepo.GetAllConcepsByUserId(u.Id, page);
         }
 
         async Task<int> IUsserLogic.Save(UserSave dto)
         {
-            return await _userRepo.SaveUser(new Usuario { 
+            return await _userRepo.SaveUser(new Usuario
+            {
                 Nombre = dto.Nombre,
                 UltimoDigitoDoc = dto.UltimoDigitoDoc,
                 Telefono = dto.Telefono,

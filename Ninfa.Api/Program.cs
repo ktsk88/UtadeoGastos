@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Ninfa.DataAccess;
 using Ninfa.Integration;
+using Ninfa.Logic;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -13,6 +14,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddNinfaIntegrations();
+builder.Services.AddNinfaDataAccess();
+builder.Services.AddNinfaLogic();
 builder.Services.AddDbContext<NinfaDbContext>(dbOptions => dbOptions.UseSqlServer(configuration.GetConnectionString("DConnection")));
 
 var app = builder.Build();

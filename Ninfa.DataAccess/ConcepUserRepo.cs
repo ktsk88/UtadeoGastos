@@ -1,8 +1,7 @@
-﻿using System.Xml.Linq;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 using Ninfa.Common;
+using Ninfa.Common.TransferObjects;
 using Ninfa.Entities;
 using Ninfa.Interface;
 
@@ -61,14 +60,14 @@ namespace Ninfa.DataAccess
             return await _dbContext.ConceptosUsuarios.AnyAsync(u => u.Nombre.Equals(name) && u.UsuarioId.Equals(userId));
         }
 
-        async Task<IEnumerable<ConceptRead>> IConcepUserRepo.GetAllConcepsByUserId(int id)
+        async Task<PaginatedResult<ConceptRead>> IConcepUserRepo.GetAllConcepsByUserId(int id, int page)
         {
             return await _dbContext.ConceptosUsuarios.Where(u => u.UsuarioId.Equals(id)).Select(c => new ConceptRead
             {
                 Id = c.Id,
                 Nombre = c.Nombre,
                 FechaCreacion = c.FechaCreacion
-            }).ToListAsync();
+            }).ToPaginatedList(page, 8);
         }
     }
 
