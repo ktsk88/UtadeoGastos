@@ -11,6 +11,7 @@ namespace Ninfa.DataAccess
             services.AddScoped<IConcepUserRepo, ConcepUserRepo>();
             services.AddScoped<IRegisterDataUser, RegisterDataUser>();
             services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<IConversationRepo, ConversationRepo>();
             return services;
         }
     }
