@@ -26,7 +26,7 @@ namespace Ninfa.Api.Controllers
         [HttpGet("{mensaje}")]
         public async Task<ActionResult> GetTest([FromRoute] string mensaje)
         {
-            var tender = await gpt.GetIntention(mensaje);
+            var tender = await gpt.GetBotResponse(mensaje);
             return Ok();
         }
 

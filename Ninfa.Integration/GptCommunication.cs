@@ -6,7 +6,7 @@ namespace Ninfa.Integration
 {
     public class GptCommunication : IGptCommunication
     {
-        async Task<string> IGptCommunication.GetIntention(string userMessage)
+        async Task<string> IGptCommunication.GetBotResponse(string userMessage)
         {
             ChatClient client = new(model: "ft:gpt-4o-mini", apiKey: "sk");
 
