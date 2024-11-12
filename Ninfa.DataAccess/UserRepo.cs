@@ -26,6 +26,11 @@ namespace Ninfa.DataAccess
             return await _dbContext.Usuarios.FindAsync(id);
         }
 
+        async Task<Usuario?> IUserRepo.GetUserByPhone(string phone)
+        {
+            return await _dbContext.Usuarios.FirstOrDefaultAsync(u => u.Telefono.Equals(phone));
+        }
+
         async Task<IEnumerable<Usuario>> IUserRepo.GetAllUsers()
         {
             return await _dbContext.Usuarios.ToListAsync();

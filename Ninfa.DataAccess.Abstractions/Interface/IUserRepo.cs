@@ -33,6 +33,7 @@ namespace Ninfa.Interface
         /// <param name="phone">User's phone number.</param>
         /// <returns>Boolean indicating existence of the user.</returns>
         Task<bool> UserExistsByPhone(string phone);
+        Task<Usuario?> GetUserByPhone(string phone);
     }
 
 }
